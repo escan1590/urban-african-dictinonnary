@@ -13,7 +13,9 @@
     "test2": "tsc --build && npm run jasmine",
     "jasmine": "jasmine",
     "jasmine-ts": "jasmine-ts",
-    "db-migrate": "db-migrate"
+    "db-migrate": "db-migrate",
+    "db-mig-up-test": "db-migrate --env test up",
+    "db-mig-down-test": "db-migrate --env test down"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

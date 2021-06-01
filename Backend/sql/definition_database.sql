@@ -1,5 +1,5 @@
 CREATE TABLE "user" (
-  "id" bigint(20),
+  "id" varchar(36) PRIMARY KEY,
   "name" varchar(100),
   "username" varchar(50),
   "email" varchar(50),
@@ -8,8 +8,8 @@ CREATE TABLE "user" (
 );
 
 CREATE TABLE "Definition" (
-  "id" bigint(20),
-  "authorId" bigint(20),
+  "id" SERIAL PRIMARY KEY,
+  "authorId" varchar(36),
   "categoryId" bitInt(20),
   "categoryLetterId" bigint(20),
   "title" varchar(75),
@@ -24,19 +24,19 @@ CREATE TABLE "Definition" (
 );
 
 CREATE TABLE "category" (
-  "id" bigint(20),
+  "id" SERIAL PRIMARY KEY,
   "title" varchar(75),
   "path" varchar(100)
 );
 
 CREATE TABLE "category_letter" (
-  "id" bigint(20),
+  "id" SERIAL PRIMARY KEY,
   "letter" varchar(2),
   "path" varchar(20)
 );
 
 CREATE TABLE "tag" (
-  "id" bigint(20),
+  "id" SERIAL PRIMARY KEY,
   "title" varchar(75),
   "path" varchar(100)
 );
