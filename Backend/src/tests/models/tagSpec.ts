@@ -1,4 +1,4 @@
-import {TagStore, Tag} from 
+import {TagStore, Tag} from "../../models/tag"
 
 const store = new TagStore();
 
@@ -20,9 +20,30 @@ describe("tag model", () => {
     //second part: test if the different method behave as intended
     describe("method behavior",
     () => {
-      it("should create a new tag", () => {});
-      it("should display all the tags created", () => {});
-      it("should show the tuple with id 1", () => {});
+      it("should create a new tag", async () => {
+        const result = await store.create("#up","#up")
+        expect(result).toEqual({
+          id : 1,
+          title : "#up",
+          path : "#up"
+        })
+      });
+      it("should display all the tags created", async () => {
+        const result = await store.index();
+        expect(result).toEqual([{
+          id : 1,
+          title : "#up",
+          path : "#up"
+        }])
+      });
+      it("should show the tuple with id 1", async () => {
+        const result = await store.show(1);
+        expect(result).toEqual({
+          id : 1,
+          title : "#up",
+          path : "#up"
+        })
+      });
     };
   });
   
