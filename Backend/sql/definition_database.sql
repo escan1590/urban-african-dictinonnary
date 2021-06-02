@@ -42,8 +42,8 @@ CREATE TABLE "tag" (
 );
 
 CREATE TABLE "definition_tag" (
-  "tagId" bigint(20),
-  "definitionId" bigint(20)
+  "tagId" bigint,
+  "definitionId" bigint
 );
 
 ALTER TABLE "Definition" ADD FOREIGN KEY ("authorId") REFERENCES "user" ("id");

@@ -1,6 +1,6 @@
 CREATE TABLE "tag" (
   "id" SERIAL PRIMARY KEY,
-  "title" varchar(75),
+  "title" varchar(100),
   "path" varchar(100)
 );
 

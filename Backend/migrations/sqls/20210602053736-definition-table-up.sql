@@ -4,7 +4,7 @@ CREATE TABLE "definition" (
   "categoryId" integer REFERENCES category(id),
   "categoryLetterId" integer REFERENCES category_letter(id),
   "title" varchar(75),
-  "description" varchar,
+  "description" text,
   "exemple" varchar,
   "published" boolean,
   "createdAt" date,

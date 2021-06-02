@@ -1,7 +1,10 @@
-import { DefinitionStore, Definition } from "../../models/definition ";
+import { DefinitionStore, Definition } from "../../models/definition";
+import {CategoryStore} from "../../models/category";
+import {UserStore} from "../../models/category";
+import {CategoryLetterStore} from "../../models/categoryLetter";
 
 const store = new DefinitionStore();
-
+const UserStore = new UserStore();
 //tests for definition model
 describe("definition model", () => {
   //fist part: test if the methods are defined
@@ -27,7 +30,8 @@ describe("definition model", () => {
   describe("method behavior",
     () => {
       it("should create a new definition", async () => {
-
+        await 
+        const result = await store.create(1,1,1,"title exemple","description exemple",true,"2020-12-10","2020-12-10",0,0,0);
       });
       it("should display all the defintions created", () => {});
       it("should show the tuple with id 1", () => {});
