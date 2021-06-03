@@ -1,6 +1,6 @@
 import Client from "../database";
 
-//Type for users data
+// Type for users data
 export type User = {
   id: string;
   name: string;
@@ -8,6 +8,6 @@ export type User = {
   email: string;
   passwordHash: string;
   registeredAt: Date;
-};
+    }
 
 export class UserStore {}

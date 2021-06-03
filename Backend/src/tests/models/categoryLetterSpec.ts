@@ -1,13 +1,15 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+/* eslint-disable no-undef */
 import {
   CategoryLetterStore,
-  CategoryLetter,
 } from "../../models/categoryLetter";
 
 const store = new CategoryLetterStore();
 
-//tests for definition model
+// tests for definition model
 describe("category_letter model", () => {
-  //fist part: test if the methods are defined
+  // fist part: test if the methods are defined
   describe("method definition", () => {
     it("should have an index method", () => {
       expect(store.index).toBeDefined();
@@ -158,10 +160,10 @@ describe("category_letter model", () => {
         const result = await store.show(1)
         expect(result).toEqual({
           id : 1,
-          title : "A",
+          letter : "A",
           path : "A",
         })
       });
-    }; 
-  //second part: test if the different method behave as intended
+    }); 
+  // second part: test if the different method behave as intended
 });

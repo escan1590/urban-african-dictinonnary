@@ -1,10 +1,13 @@
-import {TagStore, Tag} from "../../models/tag"
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+/* eslint-disable no-undef */
+import {TagStore} from "../../models/tag"
 
 const store = new TagStore();
 
-//tests for definition model
+// tests for definition model
 describe("tag model", () => {
-    //fist part: test if the methods are defined
+    // fist part: test if the methods are defined
     describe("method definition", () => {
       it("should have an index method", () => {
         expect(store.index).toBeDefined();
@@ -17,7 +20,7 @@ describe("tag model", () => {
       });
     });
   
-    //second part: test if the different method behave as intended
+    // second part: test if the different method behave as intended
     describe("method behavior",
     () => {
       it("should create a new tag", async () => {
@@ -44,6 +47,6 @@ describe("tag model", () => {
           path : "#up"
         })
       });
-    };
+    });
   });
   

@@ -1,12 +1,12 @@
 import { Pool } from "pg";
 import dotenv from "dotenv";
 
-//step 1: load .env datas
+// step 1: load .env datas
 dotenv.config();
 let Client: Pool;
 const { ENV } = process.env;
 
-//step 2: extract .env datas for db connection
+// step 2: extract .env datas for db connection
 const config = {
   host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DB,
@@ -15,7 +15,7 @@ const config = {
   password: process.env.POSTGRES_PASSWORD,
 };
 
-//step 3: create the client depending on the environment
+// step 3: create the client depending on the environment
 if (ENV === "dev") {
   Client = new Pool({
     host: config.host,

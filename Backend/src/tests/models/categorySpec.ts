@@ -1,10 +1,13 @@
-import { CategoryStore, Category } from "../../models/category";
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+/* eslint-disable no-undef */
+import { CategoryStore } from "../../models/category";
 
 const store = new CategoryStore();
 
-//tests for category model
+// tests for category model
 describe("dcategory model", () => {
-  //fist part: test if the methods are defined
+  // fist part: test if the methods are defined
   describe("method definition", () => {
     it("should have an index method", () => {
       expect(store.index).toBeDefined();
@@ -14,7 +17,7 @@ describe("dcategory model", () => {
     });
   });
 
-  //second part: test if the different method behave as intended
+  // second part: test if the different method behave as intended
   describe("method behavior",
     () => {
       it("should display all the categoriess", async () => {
@@ -70,5 +73,5 @@ describe("dcategory model", () => {
           path : "dance",
         })
       });
-    };
+    });
 });
