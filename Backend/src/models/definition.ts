@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-unresolved */
 // eslint-disable-next-line import/no-unresolved
@@ -6,18 +7,18 @@ import Client from '../database';
 
 export type Definition = {
   id: number;
-  authorId: string;
-  categoryId: number;
-  categoryLetterId: number;
+  author_id: string;
+  category_id: number;
+  category_letter_id: number;
   title: string;
   description: string;
   exemple: string;
   published: true;
-  createdAt: string;
-  updatedAt: string;
-  upVotes: number;
-  downVotes: number;
-  voteScore: number;
+  created_at: string;
+  updated_at: string;
+  up_votes: number;
+  down_votes: number;
+  vote_score: number;
 };
 
 export class DefinitionStore {
@@ -48,7 +49,7 @@ export class DefinitionStore {
   async delete(id: number): Promise<Definition> {
     try {
       const conn = await Client.connect();
-      const sql = 'DELETE FROM definition WHERE id=($1)';
+      const sql = 'DELETE FROM definition WHERE id=($1) RETURNING *';
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows[0];
@@ -74,7 +75,7 @@ export class DefinitionStore {
     try {
       const conn = await Client.connect();
       const sql =
-        'INSERT INTO definition (author_id,category_id,category_letter_id,title,description,exemple,published,created_at,updated_at,up_votes,down_votes,vote_score) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)';
+        'INSERT INTO definition (author_id,category_id,category_letter_id,title,description,exemple,published,created_at,updated_at,up_votes,down_votes,vote_score) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *';
       const result = await conn.query(sql, [
         authorId,
         categoryId,

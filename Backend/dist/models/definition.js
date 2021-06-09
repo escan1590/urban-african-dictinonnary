@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DefinitionStore = void 0;
+/* eslint-disable camelcase */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-unresolved */
 // eslint-disable-next-line import/no-unresolved
@@ -106,7 +107,7 @@ var DefinitionStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'DELETE FROM definition WHERE id=($1)';
+                        sql = 'DELETE FROM definition WHERE id=($1) RETURNING *';
                         return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         result = _a.sent();
@@ -130,7 +131,7 @@ var DefinitionStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO definition (author_id,category_id,category_letter_id,title,description,exemple,published,created_at,updated_at,up_votes,down_votes,vote_score) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)';
+                        sql = 'INSERT INTO definition (author_id,category_id,category_letter_id,title,description,exemple,published,created_at,updated_at,up_votes,down_votes,vote_score) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *';
                         return [4 /*yield*/, conn.query(sql, [
                                 authorId,
                                 categoryId,

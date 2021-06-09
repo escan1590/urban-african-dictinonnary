@@ -11,5 +11,14 @@ CREATE TABLE "definition" (
   "updated_at" date,
   "up_votes" integer,
   "down_votes" integer,
-  "vote_score" integer
+  "vote_score" integer,
+    FOREIGN KEY (author_id)
+        REFERENCES users (id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (category_id)
+        REFERENCES category (id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (category_letter_id)
+        REFERENCES category_letter (id)
+        ON DELETE CASCADE
 );

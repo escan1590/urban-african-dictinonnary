@@ -107,7 +107,7 @@ var TagStore = /** @class */ (function () {
                     case 1:
                         conn = _a.sent();
                         sqlCheck = 'SELECT title FROM tag WHERE title = ($1)';
-                        sql = 'INSERT INTO tag (title, path) VALUES($1,$2)';
+                        sql = 'INSERT INTO tag (title, path) VALUES($1,$2) RETURNING *';
                         return [4 /*yield*/, conn.query(sqlCheck, [title])];
                     case 2:
                         resultCheck = _a.sent();

@@ -40,7 +40,7 @@ export class TagStore {
     try {
       const conn = await Client.connect();
       const sqlCheck = 'SELECT title FROM tag WHERE title = ($1)';
-      const sql = 'INSERT INTO tag (title, path) VALUES($1,$2)';
+      const sql = 'INSERT INTO tag (title, path) VALUES($1,$2) RETURNING *';
       const resultCheck = await conn.query(sqlCheck, [title]);
       if (resultCheck.rows[0] === title) throw new Error(`Tag already exist`);
       const result = await conn.query(sql, [title, path]);
