@@ -1,10 +1,9 @@
+"use strict";
 // /* eslint-disable import/no-unresolved */
 // /* eslint-disable import/extensions */
 // /* eslint-disable no-undef */
 // import { TagStore } from '../../models/tag';
-
 // const store = new TagStore();
-
 // // tests for definition model
 // describe('tag model', () => {
 //   // fist part: test if the methods are defined
@@ -19,7 +18,6 @@
 //       expect(store.create).toBeDefined();
 //     });
 //   });
-
 //   // second part: test if the different method behave as intended
 //   describe('method behavior', () => {
 //     it('should create a new tag', async () => {

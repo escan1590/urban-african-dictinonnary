@@ -2,7 +2,7 @@
 /* eslint-disable import/no-unresolved */
 // eslint-disable-next-line import/no-unresolved
 // eslint-disable-next-line import/extensions
-import Client from "../database";
+import Client from '../database';
 
 // Type for tag datas
 export type Tag = {
@@ -12,10 +12,10 @@ export type Tag = {
 };
 
 export class TagStore {
-  async index():Promise<Tag[]>{
+  async index(): Promise<Tag[]> {
     try {
       const conn = await Client.connect();
-      const sql = "SELECT * FROM tag";
+      const sql = 'SELECT * FROM tag';
       const result = await conn.query(sql);
       conn.release();
       return result.rows;
@@ -24,11 +24,11 @@ export class TagStore {
     }
   }
 
-  async show(id:number):Promise<Tag>{
+  async show(id: number): Promise<Tag> {
     try {
       const conn = await Client.connect();
-      const sql = "SELECT * FROM tag WHERE id=($1)";
-      const result = await conn.query(sql,[id]);
+      const sql = 'SELECT * FROM tag WHERE id=($1)';
+      const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows[0];
     } catch (error) {
@@ -36,14 +36,14 @@ export class TagStore {
     }
   }
 
-  async create(title:string,path:string):Promise<Tag>{
+  async create(title: string, path: string): Promise<Tag> {
     try {
       const conn = await Client.connect();
-      const sqlCheck = "SELECT title FROM tag WHERE title = $(1)";
-      const sql = "INSERT INTO tag (title, path) VALUES($1,$2)";
-      const resultCheck = await conn.query(sqlCheck,[title]);
-      if(!resultCheck.rows.length) throw new Error(`Tag already exist`); 
-      const result = await conn.query(sql,[title,path]);
+      const sqlCheck = 'SELECT title FROM tag WHERE title = ($1)';
+      const sql = 'INSERT INTO tag (title, path) VALUES($1,$2)';
+      const resultCheck = await conn.query(sqlCheck, [title]);
+      if (resultCheck.rows[0] === title) throw new Error(`Tag already exist`);
+      const result = await conn.query(sql, [title, path]);
       conn.release();
       return result.rows[0];
     } catch (error) {

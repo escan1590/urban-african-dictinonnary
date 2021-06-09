@@ -1,8 +1,9 @@
-import { Pool } from "pg";
-import dotenv from "dotenv";
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
 
 // step 1: load .env datas
 dotenv.config();
+// eslint-disable-next-line import/no-mutable-exports
 let Client: Pool;
 const { ENV } = process.env;
 
@@ -16,7 +17,7 @@ const config = {
 };
 
 // step 3: create the client depending on the environment
-if (ENV === "dev") {
+if (ENV === 'dev') {
   Client = new Pool({
     host: config.host,
     database: config.database,

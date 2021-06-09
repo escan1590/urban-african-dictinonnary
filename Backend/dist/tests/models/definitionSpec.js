@@ -1,10 +1,9 @@
+"use strict";
 // /* eslint-disable import/no-unresolved */
 // /* eslint-disable import/extensions */
 // /* eslint-disable no-undef */
 // import { DefinitionStore } from '../../models/definition';
-
 // const store = new DefinitionStore();
-
 // // tests for definition model
 // describe('definition model', () => {
 //   // fist part: test if the methods are defined
@@ -25,7 +24,6 @@
 //       expect(store.delete).toBeDefined();
 //     });
 //   });
-
 //   // second part: test if the different method behave as intended
 //   describe('method behavior', () => {
 //     it('should create a new definition', async () => {
@@ -81,7 +79,6 @@
 //     });
 //     it('should show the tuple with id 1', async () => {
 //       const result = await store.show(1);
-
 //       expect(result).toEqual({
 //         id: 1,
 //         authorId: '1',

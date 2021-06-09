@@ -4,7 +4,8 @@
 import { v4 as uuid } from 'uuid';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import { UserStore } from '../../models/users';
+import { User, UserStore } from '../../models/users';
+import { date } from '../../helpers/utils';
 
 dotenv.config();
 const pepper = process.env.BCRYPT_PASSWORD as string;
@@ -36,21 +37,23 @@ describe('users model', () => {
     const userId = uuid();
     it('should create a new user', async () => {
       const newUser = await store.create(
-        userId,
+        `${userId}`,
         'daniel',
         'dan',
         'dan@gmail.com',
         '1234',
         '2020-12-12'
       );
+      // console.log(date(newUser.registered_at));
+      // console.log('created', newUser);
       expect(newUser.id).toEqual(userId);
       expect(newUser.name).toEqual('daniel');
       expect(newUser.username).toEqual('dan');
       expect(newUser.email).toEqual('dan@gmail.com');
       expect(
-        bcrypt.compareSync(`1234${pepper}`, newUser.passwordHash)
+        bcrypt.compareSync(`1234${pepper}`, newUser.password_hash)
       ).toBeTrue();
-      expect(newUser.registeredAt).toEqual('2020-12-12');
+      expect(date(newUser.registered_at)).toEqual('2020-12-12');
       // expect(newUser).toEqual({
       //   id: userId,
       //   name: "daniel",
@@ -62,27 +65,24 @@ describe('users model', () => {
     });
 
     it('should display the user auhenticated', async () => {
-      const result = await store.authenticate('dan', '1234');
-      expect(result?.id).toEqual(userId);
-      expect(result?.name).toEqual('daniel');
-      expect(result?.username).toEqual('dan');
-      expect(result?.email).toEqual('dan@gmail.com');
+      const result: User = (await store.authenticate('dan', '1234')) as User;
+      expect(result.username).toEqual('dan');
       expect(
-        bcrypt.compareSync(`1234${pepper}`, result!.passwordHash)
+        bcrypt.compareSync(`1234${pepper}`, result.password_hash)
       ).toBeTrue();
-      expect(result?.registeredAt).toEqual('2020-12-12');
     });
 
     it('should display all the users created', async () => {
       const result = await store.index();
+      // console.log('all', result);
       expect(result[0].id).toEqual(userId);
       expect(result[0].name).toEqual('daniel');
       expect(result[0].username).toEqual('dan');
       expect(result[0].email).toEqual('dan@gmail.com');
       expect(
-        bcrypt.compareSync(`1234${pepper}`, result[0].passwordHash)
+        bcrypt.compareSync(`1234${pepper}`, result[0].password_hash)
       ).toBeTrue();
-      expect(result[0].registeredAt).toEqual('2020-12-12');
+      expect(date(result[0].registered_at)).toEqual('2020-12-12');
       // expect(result).toEqual([
       //   {
       //     id: userId,
@@ -94,16 +94,17 @@ describe('users model', () => {
       //   },
       // ]);
     });
-    it(`should show the tuple with ${userId} `, async () => {
+    it(`should show the tuple with username "dan"`, async () => {
       const result = await store.show('dan');
+      // console.log('show', result);
       expect(result.id).toEqual(userId);
       expect(result.name).toEqual('daniel');
       expect(result.username).toEqual('dan');
       expect(result.email).toEqual('dan@gmail.com');
       expect(
-        bcrypt.compareSync(`1234${pepper}`, result.passwordHash)
+        bcrypt.compareSync(`1234${pepper}`, result.password_hash)
       ).toBeTrue();
-      expect(result.registeredAt).toEqual('2020-12-12');
+      expect(date(result.registered_at)).toEqual('2020-12-12');
       // expect(result).toEqual({
       //   id: userId,
       //   name: "daniel",
@@ -124,16 +125,17 @@ describe('users model', () => {
     //     registeredAt: "2020-12-12",
     //   })
     // });
-    it('should delete the tuple with id 1', async () => {
-      const result = await store.delete(userId);
+    it('should delete the tuple with username dan', async () => {
+      const result = await store.delete('dan');
+      // console.log('delete', result);
       expect(result.id).toEqual(userId);
       expect(result.name).toEqual('daniel');
       expect(result.username).toEqual('dan');
       expect(result.email).toEqual('dan@gmail.com');
       expect(
-        bcrypt.compareSync(`1234${pepper}`, result.passwordHash)
+        bcrypt.compareSync(`1234${pepper}`, result.password_hash)
       ).toBeTrue();
-      expect(result.registeredAt).toEqual('2020-12-12');
+      expect(date(result.registered_at)).toEqual('2020-12-12');
       // expect(result).toEqual({
       //   id: userId,
       //   name: "daniel",

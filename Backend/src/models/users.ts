@@ -15,8 +15,10 @@ export type User = {
   name: string;
   username: string;
   email: string;
-  passwordHash: string;
-  registeredAt: string;
+  // eslint-disable-next-line camelcase
+  password_hash: string;
+  // eslint-disable-next-line camelcase
+  registered_at: string;
 };
 
 export class UserStore {
@@ -54,12 +56,13 @@ export class UserStore {
   ): Promise<User> {
     try {
       const conn = await Client.connect();
-      const sqlCheck = 'SELECT username FROM users WHERE username=($1)';
-      const resultCheck = await conn.query(sqlCheck, [username]);
-      if (!resultCheck.rows.length) throw new Error('User Already exist');
+      // const sqlCheck = 'SELECT username FROM users WHERE username=($1)';
+      // const resultCheck = await conn.query(sqlCheck, [username]);
+      // if (resultCheck.rows[0] === username)
+      //   throw new Error('User Already exist');
       const sql =
-        'INSERT INTO users (id,name, username, email, passwordHash, resgisteredAt) VALUES($1,$2,$3,$4,$5,$6)';
-      const hash = bcrypt.hashSync(password + pepper, Number(saltRounds));
+        'INSERT INTO users (id,name, username, email, password_hash, registered_at) VALUES($1,$2,$3,$4,$5,$6) RETURNING *';
+      const hash = await bcrypt.hash(password + pepper, Number(saltRounds));
       const result = await conn.query(sql, [
         id,
         name,
@@ -75,10 +78,24 @@ export class UserStore {
     }
   }
 
+  async authenticate(username: string, password: string): Promise<User | null> {
+    const conn = await Client.connect();
+    const sql = 'SELECT username, password_hash FROM users WHERE username=($1)';
+    const result = await conn.query(sql, [username]);
+    if (result.rows.length) {
+      const user = result.rows[0];
+      if (bcrypt.compareSync(password + pepper, user.password_hash)) {
+        return user;
+      }
+    }
+    conn.release();
+    return null;
+  }
+
   async delete(username: string): Promise<User> {
     try {
       const conn = await Client.connect();
-      const sql = 'DELETE FROM users WHERE usename=($1)';
+      const sql = 'DELETE FROM users WHERE username=($1) RETURNING *';
       const result = await conn.query(sql, [username]);
       const user = result.rows[0];
       conn.release();
@@ -86,19 +103,5 @@ export class UserStore {
     } catch (error) {
       throw new Error(`Unable to delete the user : ${error}`);
     }
-  }
-
-  async authenticate(username: string, password: string): Promise<User | null> {
-    const conn = await Client.connect();
-    const sql = 'SELECT username,password FROM users WHERE username=($1)';
-    const result = await conn.query(sql, [username]);
-    if (result.rows.length) {
-      const user = result.rows[0];
-      if (bcrypt.compareSync(password + pepper, user.passwordHash)) {
-        return user;
-      }
-    }
-    conn.release();
-    return null;
   }
 }

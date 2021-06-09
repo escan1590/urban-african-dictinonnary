@@ -1,15 +1,15 @@
 CREATE TABLE "definition" (
   "id" SERIAL PRIMARY KEY,
-  "authorId" varchar(36) REFERENCES users(id) ,
-  "categoryId" integer REFERENCES category(id),
-  "categoryLetterId" integer REFERENCES category_letter(id),
+  "author_id" varchar(36) REFERENCES users(id) ,
+  "category_id" integer REFERENCES category(id),
+  "category_letter_id" integer REFERENCES category_letter(id),
   "title" varchar(75),
   "description" text,
   "exemple" varchar,
   "published" boolean,
-  "createdAt" date,
-  "updatedAt" date,
-  "upVotes" integer,
-  "downVotes" integer,
-  "voteScore" integer
+  "created_at" date,
+  "updated_at" date,
+  "up_votes" integer,
+  "down_votes" integer,
+  "vote_score" integer
 );
