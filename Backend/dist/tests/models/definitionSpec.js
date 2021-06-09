@@ -47,19 +47,26 @@ var userStore = new users_1.UserStore();
 beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, userStore.create('1', 'paul', 'paul2', 'paul@gmai.com', '1234', '2020-12-12')];
+            case 0: return [4 /*yield*/, userStore.delete('paul2')];
+            case 1:
+                _a.sent();
+                return [4 /*yield*/, userStore.create('1', 'paul', 'paul2', 'paul@gmai.com', '1234', '2020-12-12')];
+            case 2:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, userStore.delete('paul2')];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
         }
     });
 }); });
-afterAll(function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    switch (_a.label) {
-        case 0: return [4 /*yield*/, userStore.delete('paul2')];
-        case 1: return [2 /*return*/, [_a.sent()]];
-    }
-}); }); });
 // tests for definition model
 describe('definition model', function () {
     // fist part: test if the methods are defined
@@ -175,7 +182,7 @@ describe('definition model', function () {
             });
         }); });
         it('should delete the tuple with id 1', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var result, user;
+            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, store.delete(1)];
@@ -183,7 +190,7 @@ describe('definition model', function () {
                         result = _a.sent();
                         return [4 /*yield*/, userStore.delete('paul2')];
                     case 2:
-                        user = _a.sent();
+                        _a.sent();
                         expect(result.id).toEqual(1);
                         expect(result.author_id).toEqual('1');
                         expect(result.category_id).toEqual(1);

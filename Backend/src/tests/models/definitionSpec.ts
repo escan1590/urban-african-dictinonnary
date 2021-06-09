@@ -9,6 +9,7 @@ const store = new DefinitionStore();
 const userStore = new UserStore();
 
 beforeAll(async () => {
+  await userStore.delete('paul2');
   await userStore.create(
     '1',
     'paul',
@@ -19,7 +20,9 @@ beforeAll(async () => {
   );
 });
 
-afterAll(async () => [await userStore.delete('paul2')]);
+afterAll(async () => {
+  await userStore.delete('paul2');
+});
 
 // tests for definition model
 describe('definition model', () => {
