@@ -25,7 +25,7 @@ describe('tag model', () => {
     it('should create a new tag', async () => {
       const result = await store.create('#up', '#up');
       expect(result).toEqual({
-        id: 1,
+        id: 2,
         title: '#up',
         path: '#up',
       });
@@ -35,6 +35,11 @@ describe('tag model', () => {
       expect(result).toEqual([
         {
           id: 1,
+          title: '#up2',
+          path: '#up2',
+        },
+        {
+          id: 2,
           title: '#up',
           path: '#up',
         },
@@ -44,8 +49,8 @@ describe('tag model', () => {
       const result = await store.show(1);
       expect(result).toEqual({
         id: 1,
-        title: '#up',
-        path: '#up',
+        title: '#up2',
+        path: '#up2',
       });
     });
   });

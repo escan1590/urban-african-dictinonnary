@@ -35,82 +35,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 /* eslint-disable no-undef */
-var tag_1 = require("../../models/tag");
-var store = new tag_1.TagStore();
-// tests for definition model
-describe('tag model', function () {
-    // fist part: test if the methods are defined
-    describe('method definition', function () {
-        it('should have an index method', function () {
-            expect(store.index).toBeDefined();
-        });
-        it('should have a show method', function () {
-            expect(store.show).toBeDefined();
-        });
-        it('should have a create method', function () {
-            expect(store.create).toBeDefined();
-        });
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+var supertest_1 = __importDefault(require("supertest"));
+var server_1 = __importDefault(require("../../server"));
+var request = supertest_1.default(server_1.default);
+describe('Test Category endpoint responses', function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        it('create a new tag', function () { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request
+                            .post('/tag')
+                            .send({ title: '#up2', path: '#up2' })
+                            .expect(200)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('gets the api endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get('/tag/all')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(200);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('gets the images endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get('/tag/1')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(200);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        return [2 /*return*/];
     });
-    // second part: test if the different method behave as intended
-    describe('method behavior', function () {
-        it('should create a new tag', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, store.create('#up', '#up')];
-                    case 1:
-                        result = _a.sent();
-                        expect(result).toEqual({
-                            id: 2,
-                            title: '#up',
-                            path: '#up',
-                        });
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-        it('should display all the tags created', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, store.index()];
-                    case 1:
-                        result = _a.sent();
-                        expect(result).toEqual([
-                            {
-                                id: 1,
-                                title: '#up2',
-                                path: '#up2',
-                            },
-                            {
-                                id: 2,
-                                title: '#up',
-                                path: '#up',
-                            },
-                        ]);
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-        it('should show the tuple with id 1', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, store.show(1)];
-                    case 1:
-                        result = _a.sent();
-                        expect(result).toEqual({
-                            id: 1,
-                            title: '#up2',
-                            path: '#up2',
-                        });
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-    });
-});
+}); });
