@@ -7,12 +7,12 @@ import app from '../../server';
 const request = supertest(app);
 
 describe('Test Category endpoint responses', async () => {
-  it('gets the api endpoint', async () => {
+  it('gets all category enpoint', async () => {
     const response = await request.get('/category/all');
     expect(response.status).toBe(200);
   });
 
-  it('gets the images endpoint', async () => {
+  it('gets a specific category endpoint', async () => {
     const response = await request.get('/category/1');
     expect(response.status).toBe(200);
   });

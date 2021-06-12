@@ -14,12 +14,12 @@ describe('Test Category endpoint responses', async () => {
       .expect(200);
   });
 
-  it('gets the api endpoint', async () => {
+  it('gets all the tag endpoint', async () => {
     const response = await request.get('/tag/all');
     expect(response.status).toBe(200);
   });
 
-  it('gets the images endpoint', async () => {
+  it('gets a specific tag endpoint', async () => {
     const response = await request.get('/tag/1');
     expect(response.status).toBe(200);
   });

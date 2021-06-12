@@ -109,6 +109,7 @@ var create = function (_req, res) { return __awaiter(void 0, void 0, void 0, fun
         }
     });
 }); };
+// Add a check for tags to make sure they have the sign #
 var tagRoute = function (app) {
     app.get('/tag/all', index);
     app.get('/tag/:id', show);

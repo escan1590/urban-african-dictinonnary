@@ -4,14 +4,13 @@ import express, { Request, Response } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
-import favicon from 'serve-favicon';
-import path from 'path';
 import { port } from './config';
 
 // Routes imports
 import categoryRoute from './handlers/category';
 import categoryLetterRoute from './handlers/categoryLetter';
 import tagRoute from './handlers/tag';
+import userRoute from './handlers/users';
 
 const app = express();
 
@@ -21,9 +20,6 @@ const limiter = rateLimit({
   message:
     'Too many accounts created from this IP, please try again after a minute',
 });
-
-// serve favicon
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // Middlewares
 app.use(helmet());
@@ -39,6 +35,7 @@ app.get('/', (_req: Request, res: Response) => {
 categoryRoute(app);
 categoryLetterRoute(app);
 tagRoute(app);
+userRoute(app);
 
 // Listen
 app.listen(port, () => {

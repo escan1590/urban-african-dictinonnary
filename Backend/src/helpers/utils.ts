@@ -4,7 +4,7 @@
  * @param {*} timestamp
  * @returns formated date
  */
-export const date = (timestamp: string): string => {
+export const date = (timestamp: string | number): string => {
   const pubDate = new Date(timestamp);
   const formattedDate = `${pubDate.getFullYear()}-${
     pubDate.getMonth() + 1

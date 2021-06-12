@@ -9,8 +9,6 @@ var express_1 = __importDefault(require("express"));
 var helmet_1 = __importDefault(require("helmet"));
 var morgan_1 = __importDefault(require("morgan"));
 var express_rate_limit_1 = __importDefault(require("express-rate-limit"));
-var serve_favicon_1 = __importDefault(require("serve-favicon"));
-var path_1 = __importDefault(require("path"));
 var config_1 = require("./config");
 // Routes imports
 var category_1 = __importDefault(require("./handlers/category"));
@@ -22,8 +20,6 @@ var limiter = express_rate_limit_1.default({
     max: 100,
     message: 'Too many accounts created from this IP, please try again after a minute',
 });
-// serve favicon
-app.use(serve_favicon_1.default(path_1.default.join(__dirname, 'public', 'favicon.ico')));
 // Middlewares
 app.use(helmet_1.default());
 app.use(morgan_1.default('common'));

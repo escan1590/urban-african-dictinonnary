@@ -40,7 +40,7 @@ const create = async (_req: Request, res: Response) => {
     res.status(400).send(`Unable to create the tag : ${error}`);
   }
 };
-
+// Add a check for tags to make sure they have the sign #
 const tagRoute = (app: express.Application) => {
   app.get('/tag/all', index);
   app.get('/tag/:id', show);
