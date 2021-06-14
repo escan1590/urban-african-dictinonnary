@@ -14,6 +14,7 @@ var config_1 = require("./config");
 var category_1 = __importDefault(require("./handlers/category"));
 var categoryLetter_1 = __importDefault(require("./handlers/categoryLetter"));
 var tag_1 = __importDefault(require("./handlers/tag"));
+var users_1 = __importDefault(require("./handlers/users"));
 var app = express_1.default();
 var limiter = express_rate_limit_1.default({
     windowMs: 15 * 60 * 1000,
@@ -33,6 +34,7 @@ app.get('/', function (_req, res) {
 category_1.default(app);
 categoryLetter_1.default(app);
 tag_1.default(app);
+users_1.default(app);
 // Listen
 app.listen(config_1.port, function () {
     // eslint-disable-next-line no-console

@@ -15,7 +15,11 @@ const secret: jwt.Secret = process.env.TOKEN_SECRET as string;
 const index = async (_req: Request, res: Response) => {
   try {
     const result = await store.index();
-    res.send(result);
+    if (!result) {
+      res.status(204).send('No records');
+    } else {
+      res.send(result);
+    }
   } catch (error) {
     res.status(400).send(`Unable to show users items : ${error}`);
   }
@@ -27,7 +31,11 @@ const show = async (_req: Request, res: Response) => {
     const { username } = _req.params;
     if (!username) throw new Error('No username provided');
     const result = await store.show(username);
-    res.send(result);
+    if (!result) {
+      res.status(204).send('No such record');
+    } else {
+      res.send(result);
+    }
   } catch (error) {
     res.status(400).send(`Unable to show user : ${error}`);
   }
@@ -101,10 +109,10 @@ const remove = (_req: Request, res: Response) => {
 
 const userRoute = (app: express.Application) => {
   app.get('/user/all', index);
-  app.get('/user/:id', verifyAuthId, show);
-  app.post('user', express.json(), create);
-  app.post('user/login', express.json(), authenticate);
-  app.delete('user/:id/:username', verifyAuthId, remove);
+  app.get('/user/:id/:username', verifyAuthId, show);
+  app.post('/user', express.json(), create);
+  app.post('/user/login', express.json(), authenticate);
+  app.delete('/user/:id/:username', verifyAuthId, remove);
 };
 
 export default userRoute;

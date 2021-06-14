@@ -1,6 +1,9 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { UserAuth } from '../models/users';
 
 dotenv.config();
 
@@ -25,7 +28,7 @@ export const verifyAuthId = (
   res: Response,
   next: NextFunction
 ) => {
-  const user = {
+  const userCheck: { id?: string; username?: string } = {
     id: _req.params.id,
     username: _req.params.username,
   };
@@ -34,8 +37,10 @@ export const verifyAuthId = (
     const authorizationHeader = _req.headers.authorization;
     const token = authorizationHeader?.split(' ')[1] as string;
     const secret = process.env.TOKEN_SECRET as string;
-    const decoded = jwt.verify(token, secret);
-    if (decoded.id !== user.id) {
+    const { user }: { user: UserAuth } = jwt.verify(token, secret) as {
+      user: UserAuth;
+    };
+    if (user.id !== userCheck.id || user.username !== userCheck.username) {
       throw new Error('authorization denied');
     }
     next();

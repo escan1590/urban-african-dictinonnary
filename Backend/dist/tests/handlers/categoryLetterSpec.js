@@ -47,7 +47,7 @@ var server_1 = __importDefault(require("../../server"));
 var request = supertest_1.default(server_1.default);
 describe('Test Category_letter endpoint responses', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        it('gets the api endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('gets all category_letter endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
             var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -59,7 +59,7 @@ describe('Test Category_letter endpoint responses', function () { return __await
                 }
             });
         }); });
-        it('gets the images endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('gets a specific category_letter endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
             var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {

@@ -21,6 +21,12 @@ export type User = {
   registered_at: string;
 };
 
+export type UserAuth = {
+  id: string;
+  username: string;
+  // eslint-disable-next-line camelcase
+  password_hash: string;
+};
 export class UserStore {
   async index(): Promise<User[]> {
     try {
