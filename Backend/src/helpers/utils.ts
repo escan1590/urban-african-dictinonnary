@@ -11,3 +11,38 @@ export const date = (timestamp: string | number): string => {
   }-${pubDate.getDate()}`;
   return formattedDate;
 };
+
+export const findLetterId = (word: string) => {
+  const splited = word.split('');
+  const firstLetter = splited[0].toUpperCase();
+  const letterArr = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+  ];
+
+  return letterArr.indexOf(firstLetter) + 1;
+};

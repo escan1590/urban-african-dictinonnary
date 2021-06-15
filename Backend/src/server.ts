@@ -11,6 +11,7 @@ import categoryRoute from './handlers/category';
 import categoryLetterRoute from './handlers/categoryLetter';
 import tagRoute from './handlers/tag';
 import userRoute from './handlers/users';
+import definitionRoute from './handlers/definition';
 
 const app = express();
 
@@ -36,6 +37,7 @@ categoryRoute(app);
 categoryLetterRoute(app);
 tagRoute(app);
 userRoute(app);
+definitionRoute(app);
 
 // Listen
 app.listen(port, () => {

@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-unresolved
 // eslint-disable-next-line import/extensions
 import Client from '../database';
-
+// TODO create a show that only show definition for a particular user id
 export type Definition = {
   id: number;
   author_id: string;
@@ -13,7 +13,7 @@ export type Definition = {
   title: string;
   description: string;
   exemple: string;
-  published: true;
+  published: boolean;
   created_at: string;
   updated_at: string;
   up_votes: number;
@@ -34,7 +34,21 @@ export class DefinitionStore {
     }
   }
 
-  async show(id: number): Promise<Definition> {
+  // TODO create a show that only show definition for a particular user id
+
+  async indexUser(authorId: string | number): Promise<Definition[]> {
+    try {
+      const conn = await Client.connect();
+      const sql = 'SELECT * FROM definition WHERE author_id=($1)';
+      const result = await conn.query(sql, [authorId]);
+      conn.release();
+      return result.rows;
+    } catch (error) {
+      throw new Error(`Unable to fetch this user definitions : ${error}`);
+    }
+  }
+
+  async show(id: number | string): Promise<Definition> {
     try {
       const conn = await Client.connect();
       const sql = 'SELECT * FROM definition WHERE id=($1)';
@@ -46,7 +60,7 @@ export class DefinitionStore {
     }
   }
 
-  async delete(id: number): Promise<Definition> {
+  async delete(id: number | string): Promise<Definition> {
     try {
       const conn = await Client.connect();
       const sql = 'DELETE FROM definition WHERE id=($1) RETURNING *';
@@ -65,12 +79,12 @@ export class DefinitionStore {
     title: string,
     description: string,
     exemple: string,
-    published: boolean,
+    published: boolean = true,
     createdAt: string,
     updatedAt: string,
-    upVotes: number,
-    downVotes: number,
-    voteScore: number
+    upVotes: number = 0,
+    downVotes: number = 0,
+    voteScore: number = 0
   ): Promise<Definition> {
     try {
       const conn = await Client.connect();
@@ -99,7 +113,7 @@ export class DefinitionStore {
   }
 
   async update(
-    id: number,
+    id: number | string,
     title: string,
     description: string,
     exemple: string,
