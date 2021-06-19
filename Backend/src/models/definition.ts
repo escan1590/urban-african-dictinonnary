@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-unresolved
 // eslint-disable-next-line import/extensions
 import Client from '../database';
-// TODO create a show that only show definition for a particular user id
+// TODO: create a show that only show definition for a particular user id
 export type Definition = {
   id: number;
   author_id: string;

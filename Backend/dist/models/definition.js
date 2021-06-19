@@ -73,9 +73,34 @@ var DefinitionStore = /** @class */ (function () {
             });
         });
     };
-    DefinitionStore.prototype.show = function (id) {
+    // TODO create a show that only show definition for a particular user id
+    DefinitionStore.prototype.indexUser = function (authorId) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = 'SELECT * FROM definition WHERE author_id=($1)';
+                        return [4 /*yield*/, conn.query(sql, [authorId])];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows];
+                    case 3:
+                        error_2 = _a.sent();
+                        throw new Error("Unable to fetch this user definitions : " + error_2);
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DefinitionStore.prototype.show = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -90,8 +115,8 @@ var DefinitionStore = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, result.rows[0]];
                     case 3:
-                        error_2 = _a.sent();
-                        throw new Error("Unable to fetch the definition : " + error_2);
+                        error_3 = _a.sent();
+                        throw new Error("Unable to fetch the definition : " + error_3);
                     case 4: return [2 /*return*/];
                 }
             });
@@ -99,7 +124,7 @@ var DefinitionStore = /** @class */ (function () {
     };
     DefinitionStore.prototype.delete = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var conn, sql, result, error_3;
+            var conn, sql, result, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -114,16 +139,20 @@ var DefinitionStore = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, result.rows[0]];
                     case 3:
-                        error_3 = _a.sent();
-                        throw new Error("Unable to delete the definition : " + error_3);
+                        error_4 = _a.sent();
+                        throw new Error("Unable to delete the definition : " + error_4);
                     case 4: return [2 /*return*/];
                 }
             });
         });
     };
     DefinitionStore.prototype.create = function (authorId, categoryId, categoryLetterId, title, description, exemple, published, createdAt, updatedAt, upVotes, downVotes, voteScore) {
+        if (published === void 0) { published = true; }
+        if (upVotes === void 0) { upVotes = 0; }
+        if (downVotes === void 0) { downVotes = 0; }
+        if (voteScore === void 0) { voteScore = 0; }
         return __awaiter(this, void 0, void 0, function () {
-            var conn, sql, result, error_4;
+            var conn, sql, result, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -151,8 +180,8 @@ var DefinitionStore = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, result.rows[0]];
                     case 3:
-                        error_4 = _a.sent();
-                        throw new Error("Unable to create the definition : " + error_4);
+                        error_5 = _a.sent();
+                        throw new Error("Unable to create the definition : " + error_5);
                     case 4: return [2 /*return*/];
                 }
             });
@@ -160,7 +189,7 @@ var DefinitionStore = /** @class */ (function () {
     };
     DefinitionStore.prototype.update = function (id, title, description, exemple, updatedAt) {
         return __awaiter(this, void 0, void 0, function () {
-            var conn, sqlExisting, resultExist, titleExist, descExist, updExist, exExist, sql, sqlAfterUpdate, resultAfter, error_5;
+            var conn, sqlExisting, resultExist, titleExist, descExist, updExist, exExist, sql, sqlAfterUpdate, resultAfter, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -189,8 +218,8 @@ var DefinitionStore = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, resultAfter.rows[0]];
                     case 5:
-                        error_5 = _a.sent();
-                        throw new Error("Unable to update the definition : " + error_5);
+                        error_6 = _a.sent();
+                        throw new Error("Unable to update the definition : " + error_6);
                     case 6: return [2 /*return*/];
                 }
             });

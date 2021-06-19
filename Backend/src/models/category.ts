@@ -23,6 +23,18 @@ export class CategoryStore {
       throw new Error(`Unable to fetch all the categories : ${error}`);
     }
   }
+  // TODO: test this new function
+
+  async showCatID(catName: string): Promise<number> {
+    try {
+      const conn = await Client.connect();
+      const sql = 'SELECT id FROM category Where title=($1)';
+      const result = await conn.query(sql, [catName.toLowerCase()]);
+      return result.rows[0].id;
+    } catch (error) {
+      throw new Error(`Unable to find that category : ${error}`);
+    }
+  }
 
   async show(id: number): Promise<Category> {
     try {

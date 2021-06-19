@@ -72,9 +72,33 @@ var CategoryStore = /** @class */ (function () {
             });
         });
     };
-    CategoryStore.prototype.show = function (id) {
+    // TODO: test this new function
+    CategoryStore.prototype.showCatID = function (catName) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = 'SELECT id FROM category Where title=($1)';
+                        return [4 /*yield*/, conn.query(sql, [catName.toLowerCase()])];
+                    case 2:
+                        result = _a.sent();
+                        return [2 /*return*/, result.rows[0].id];
+                    case 3:
+                        error_2 = _a.sent();
+                        throw new Error("Unable to find that category : " + error_2);
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CategoryStore.prototype.show = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -89,8 +113,8 @@ var CategoryStore = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, result.rows[0]];
                     case 3:
-                        error_2 = _a.sent();
-                        throw new Error("Unable to fetch that category : " + error_2);
+                        error_3 = _a.sent();
+                        throw new Error("Unable to fetch that category : " + error_3);
                     case 4: return [2 /*return*/];
                 }
             });

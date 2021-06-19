@@ -7,18 +7,16 @@ import { User, UserAuth } from '../models/users';
 
 dotenv.config();
 
-export const verifyAuth = (
-  _req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const verifyAuth = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const authorizationHeader = _req.headers.authorization;
+    const authorizationHeader = req.headers.authorization;
     const token = authorizationHeader?.split(' ')[1] as string;
     const secret = process.env.TOKEN_SECRET as string;
     const { user } = jwt.verify(token, secret) as { user: UserAuth | User };
     // eslint-disable-next-line no-param-reassign
-    _req.idUser = user.id;
+    // @ts-ignore
+    // eslint-disable-next-line no-param-reassign
+    req.idUser = user.id;
     next();
   } catch (error) {
     res.status(401);

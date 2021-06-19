@@ -2,11 +2,13 @@
 /* eslint-disable import/no-unresolved */
 import express, { Request, Response } from 'express';
 import { DefinitionStore } from '../models/definition';
+import { CategoryStore } from '../models/category';
 import { date, findLetterId } from '../helpers/utils';
-import { verifyAuth, verifyAuthId } from '../middleware/verifyAuth';
+import { verifyAuth, verifyAuthIdDef } from '../middleware/verifyAuth';
 import { titleLeast, descLeast, expLeast } from '../helpers/config';
 
 const store = new DefinitionStore();
+const categoryStore = new CategoryStore();
 
 const index = async (_req: Request, res: Response) => {
   try {
@@ -46,7 +48,10 @@ const show = async (_req: Request, res: Response) => {
 
 const create = async (_req: Request, res: Response) => {
   try {
-    const { categoryId, title, description, exemple } = _req.body;
+    const { categoryName, title, description, exemple } = _req.body;
+    const categoryId = await categoryStore.showCatID(categoryName);
+    if (!categoryId) throw new Error(`Unable to select the categoy`);
+    // @ts-ignore
     const authorId = _req.idUser;
     const categoryLetterId = findLetterId(title);
     const createdAt = date(Date.now());
@@ -68,7 +73,7 @@ const create = async (_req: Request, res: Response) => {
   }
 };
 
-// TODO create a show that only show definition for a particular user id
+// TODO: create a show that only show definition for a particular user id
 
 const update = async (_req: Request, res: Response) => {
   try {
@@ -109,10 +114,10 @@ const update = async (_req: Request, res: Response) => {
 };
 const definitionRoute = (app: express.Application) => {
   app.get('/definition/all', index);
-  app.get('/definition/:authorId', verifyAuthId, indexUser);
+  app.get('/definition/user/:authorId', verifyAuthIdDef, indexUser);
   app.get('/definition/:id', show);
   app.post('/definition', verifyAuth, express.json(), create);
-  app.put('/definition/:id', verifyAuth, update);
+  app.put('/definition/:id', verifyAuth, express.json(), update);
 };
 
 export default definitionRoute;

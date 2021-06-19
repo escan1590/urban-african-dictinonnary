@@ -24,7 +24,7 @@ const limiter = rateLimit({
 
 // Middlewares
 app.use(helmet());
-app.use(morgan('common'));
+app.use(morgan('dev'));
 app.use(limiter);
 
 // Endpoints
